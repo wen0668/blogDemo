@@ -1,2 +1,2 @@
-# blogDemo
- base on ssm to deploy blog
+blogDemo
+base on ssm to deploy blo
