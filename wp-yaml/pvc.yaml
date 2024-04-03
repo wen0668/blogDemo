@@ -1,0 +1,12 @@
+# wordpress-pvc.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data-wordpress-mariadb-testwp
+spec:
+  storageClassName: alicloud-disk-ssd
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
