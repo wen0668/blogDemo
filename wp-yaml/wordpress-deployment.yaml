@@ -29,15 +29,20 @@ spec:
       labels:
         app: wordpress
     spec:
+      imagePullSecrets:
+      - name: acr-credential
       containers:
-      - image: wordpress:6.4.3-php8.1-fpm-alpine
+      - image: registry.cn-beijing.aliyuncs.com/argocd-local/wordpress-img:php74-v6.4.3
         name: wordpress
-        env:
-        - name: WORDPRESS_DB_NAME
-          value: wpdb
-        - name: WORDPRESS_DB_USER
-          value: wpuser
-        - name: WORDPRESS_DB_PASSWORD
-          value: poipoi@098
-        - name: WORDPRESS_DB_HOST
-          value: wpdb.wpsix.svc.cluster.local
+        ports:
+        - containerPort: 80
+        envFrom:
+        - secretRef:
+            name: wordpress-secret
+        volumeMounts:
+        - name: config
+          mountPath: /etc/nginx/conf.d/
+      volumes:
+      - name: config
+        configMap:
+          name: nginxconfs
