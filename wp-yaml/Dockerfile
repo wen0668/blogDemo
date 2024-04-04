@@ -17,7 +17,9 @@ RUN useradd -M www && \
     sed -i '/^user/c user www;' /etc/nginx/nginx.conf && \
     sed -i '/^user/c user = www' /etc/php-fpm.d/www.conf && \
     sed -i '/^group/c group = www' /etc/php-fpm.d/www.conf && \
-    chown -R www.www ${Web_Dir} /var/lib/nginx/
+    chown -R www.www ${Web_Dir} /var/lib/nginx/ && \
+    chmod -R 755 ${Web_Dir}wp-content/ && \
+    chmod -R 644 ${Web_Dir}wp-content/upgrade/woocommerce.8.7.0/woocommerce/assets/client/admin/
 
 # 5、暴露容器的端口
 EXPOSE 80
