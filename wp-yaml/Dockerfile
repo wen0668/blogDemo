@@ -6,7 +6,7 @@ ENV Web_Dir="/usr/share/nginx/html/"
 
 
 # 2、将代码存储到指定的路径下
-# 2024.4.4为支持安装woocommerce插件，创建了upgrade 目录.
+# 2024.4.4为支持安装woocommerce插件，创建了wp-content/upgrade 目录.
 COPY . ${Web_Dir}
 
 # 3、准备nginx调用php的配置文件；-->抽离到configmap管理
