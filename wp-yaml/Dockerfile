@@ -12,7 +12,7 @@ COPY . ${Web_Dir}
 # 3、准备nginx调用php的配置文件；-->抽离到configmap管理
 
 
-# 4、修订权限；为了避免nginx和php运行的身份不一致，从而造成wordpress无法正常上传图片
+# 4、修订权限(目录为755，文件为644)；为了避免nginx和php运行的身份不一致，从而造成wordpress无法正常上传图片
 RUN useradd -M www && \
     sed -i '/^user/c user www;' /etc/nginx/nginx.conf && \
     sed -i '/^user/c user = www' /etc/php-fpm.d/www.conf && \
