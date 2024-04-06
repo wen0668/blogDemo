@@ -17,12 +17,11 @@ RUN useradd -M www && \
     sed -i '/^user/c user www;' /etc/nginx/nginx.conf && \
     sed -i '/^user/c user = www' /etc/php-fpm.d/www.conf && \
     sed -i '/^group/c group = www' /etc/php-fpm.d/www.conf && \
-    chown -R www.www ${Web_Dir} /var/lib/nginx/ && \
-    find ${Web_Dir} -type f -exec chmod 644 {} \; && \
-    find ${Web_Dir} -type d -exec chmod 755 {} \;
+    chown -R www.www ${Web_Dir} /var/lib/nginx/ /var/log/nginx/ /run/ /var/opt/remi/php74/{log,run}/ && \
+    chmod -R 755 /var/log/nginx/ /run/ /var/opt/remi/php74/{log,run}/
 
 # 5、暴露容器的端口
-EXPOSE 80
+EXPOSE 8080
 
 # 6、启动脚本 nginx php 然后启动这个镜像会执行该脚本
 COPY ./entrypoint.sh /entrypoint.sh

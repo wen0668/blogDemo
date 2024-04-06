@@ -10,8 +10,8 @@ spec:
   type: NodePort
   ports:
   - protocol: TCP
-    port: 80
-    targetPort: 80
+    port: 8080
+    targetPort: 8080
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -29,20 +29,28 @@ spec:
       labels:
         app: wordpress
     spec:
+      securityContext:
+        runAsUser: 1000
+        fsGroup: 1000
       imagePullSecrets:
       - name: acr-credential
       containers:
-      - image: registry.cn-beijing.aliyuncs.com/argocd-local/wordpress-img:php74-v6.4.3
+      - image: registry.cn-beijing.aliyuncs.com/argocd-local/wordpress-img:php74-v6.4.3_009
         name: wordpress
         ports:
-        - containerPort: 80
+        - containerPort: 8080
         envFrom:
         - secretRef:
             name: wordpress-secret
         volumeMounts:
         - name: config
           mountPath: /etc/nginx/conf.d/
+        - name: wordpress-plugin-storage
+          mountPath: /usr/share/nginx/html/wp-content/upgrade/
       volumes:
       - name: config
         configMap:
           name: nginxconfs
+      - name: wordpress-plugin-storage
+        persistentVolumeClaim:
+          claimName: wp-content-pv-wpsix
