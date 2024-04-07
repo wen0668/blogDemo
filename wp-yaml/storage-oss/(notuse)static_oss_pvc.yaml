@@ -1,0 +1,14 @@
+# 参考https://help.aliyun.com/zh/ack/ack-managed-and-ack-dedicated/user-guide/mount-statically-provisioned-oss-volumes?spm=a2c4g.11186623.0.0.10a658ebHrtsKP#title-hos-c75-12q
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: posts-images-pvc-wpsix
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 50Gi
+  selector:
+    matchLabels:
+      alicloud-pvname: wpsix-oss-pv
