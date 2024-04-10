@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: alicloud-oss-pod
+spec:
+  imagePullSecrets:
+  - name: acr-credential
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - node2
+  tolerations:
+  - key: "node-role.kubernetes.io/control-plane"
+    effect: NoSchedule
+  containers:
+    - name: alicloud-oss-container
+      image: nginx:1.7.9
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: oss-volume
+  volumes:
+    - name: oss-volume
+      persistentVolumeClaim:
+        claimName: posts-uploads-pvc-wpsix
