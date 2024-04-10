@@ -1,0 +1,10 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: wpsix-oss-sc
+provisioner: ossplugin.csi.alibabacloud.com
+parameters:
+  bucketRegion: "oss-cn-beijing"
+  bucketName: "wordpress-posts-image"
+reclaimPolicy: Retain
+volumeBindingMode: WaitForFirstConsumer
