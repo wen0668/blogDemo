@@ -34,6 +34,15 @@ spec:
         fsGroup: 1000
       imagePullSecrets:
       - name: acr-credential
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - node2
       containers:
       - image: registry.cn-beijing.aliyuncs.com/argocd-local/wordpress-img:php74-v6.4.3_009
         name: wordpress
@@ -47,6 +56,8 @@ spec:
           mountPath: /etc/nginx/conf.d/
         - name: wordpress-plugin-storage
           mountPath: /usr/share/nginx/html/wp-content/upgrade/
+        - name: wordpress-image-storage
+          mountPath: /usr/share/nginx/html/wp-content/uploads/
       volumes:
       - name: config
         configMap:
@@ -54,3 +65,6 @@ spec:
       - name: wordpress-plugin-storage
         persistentVolumeClaim:
           claimName: wp-content-pv-wpsix
+      - name: wordpress-image-storage
+        persistentVolumeClaim:
+          claimName: wp-img-pvc-wpsix
