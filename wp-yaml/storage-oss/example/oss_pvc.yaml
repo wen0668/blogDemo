@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: posts-uploads-pvc-wpsix
+  name: wp-img-pvc-wpsix
 spec:
   accessModes:
   - ReadWriteMany

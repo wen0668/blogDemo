@@ -23,5 +23,5 @@ spec:
       bucket: "wordpress-posts-image"
       url: "oss-cn-beijing.aliyuncs.com"
       ramRole: "RamOssTest"
-      otherOpts: "-omax_stat_cache_size=0 -ouid=1000 -ogid=1000 -oallow_other"
+      otherOpts: "-o max_stat_cache_size=0 -o uid=1000 -o gid=1000 -o allow_other"
       path: "/uploads"
