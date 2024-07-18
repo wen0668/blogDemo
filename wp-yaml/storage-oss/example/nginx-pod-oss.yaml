@@ -22,8 +22,8 @@ spec:
       image: nginx:1.7.9
       volumeMounts:
         - mountPath: "/usr/share/nginx/html"
-          name: oss-volume
+          name: oss-storage
   volumes:
-    - name: oss-volume
-      persistentVolumeClaim:
-        claimName: posts-uploads-pvc-wpsix
+  - name: oss-storage
+    persistentVolumeClaim:
+      claimName: pvc-oss

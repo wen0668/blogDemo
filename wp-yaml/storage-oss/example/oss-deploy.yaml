@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oss-static
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: registry.cn-beijing.aliyuncs.com/argocd-local/devops:nginx-latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          - name: pvc-oss
+            mountPath: "/data"
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - cd /data
+          initialDelaySeconds: 30
+          periodSeconds: 30
+      volumes:
+      - name: pvc-oss
+        persistentVolumeClaim:
+          claimName: pvc-oss           

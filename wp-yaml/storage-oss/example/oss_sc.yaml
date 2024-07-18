@@ -1,0 +1,15 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: oss
+provisioner: ossplugin.csi.alibabacloud.com
+parameters:
+  bucket: "wordpress-posts-image"
+  url: "oss-cn-beijing.aliyuncs.com"
+  akId: "LTAI5tDnX38B4x*******"
+  akSecret: "KGVxnzLJ2Y8***********"
+  otherOpts: "-o max_stat_cache_size=0 -o allow_other"
+  ramRole: "RamOssTest"
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+
